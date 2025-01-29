@@ -45,18 +45,18 @@ if (isset($_GET['logout'])) {
 
         <div class="items-menu">
             <h2>Cadastro</h2>
-            <a href="">Slide</a>
-            <a href="<?php echo INCLUDE_PATH_PAINEL;?>cadastrar-depoimento">Depoimentos</a>
-            <a href="">Serviço</a>
+            <a <?php selecionaMenu('cadastrar-slide')?> href="">Slide</a>
+            <a <?php selecionaMenu('cadastrar-depoimento')?> href="<?php echo INCLUDE_PATH_PAINEL;?>cadastrar-depoimento">Depoimentos</a>
+            <a <?php selecionaMenu('cadastrar-servico')?> href="">Serviço</a>
             <h2>Gestão</h2>
-            <a href="">Slide</a>
-            <a href="">Depoimentos</a>
-            <a href="">Serviço</a>
+            <a <?php selecionaMenu('listar-slides')?> href="">Slide</a>
+            <a <?php selecionaMenu('listar-depoimentos')?> href="">Depoimentos</a>
+            <a <?php selecionaMenu('listar-servicos')?> href="">Serviço</a>
             <h2>Usuário</h2>
-            <a href="">Editar</a>
-            <a href="">Adicionar</a>
+            <a <?php selecionaMenu('editar-usuario')?> href="<?php echo INCLUDE_PATH_PAINEL; ?>editar-usuario">Editar</a>
+            <a <?php selecionaMenu('adicionar-usuario')?> <?php verificaPermissaoMenu(2) ?> href="<?php echo INCLUDE_PATH_PAINEL; ?>adicionar-usuario">Adicionar</a>
             <h2>Configuração</h2>
-            <a href="">Editar</a>
+            <a <?php selecionaMenu('editar')?> href="">Editar</a>
         </div><!--Items-Menu-->
     </aside>
     <header>

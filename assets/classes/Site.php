@@ -6,7 +6,7 @@
                 $token = $_SESSION['online'];
                 $horarioAtual = date('Y-m-d H:i:s');
                 $check = MySql::conectar()->prepare("SELECT `id` 
-                                                    FROM `tb-admin.online` 
+                                                    FROM `tb_admin.online` 
                                                     WHERE token = ?");
                 $check->execute(array($token));
                 if($check->rowCount() == 1){
