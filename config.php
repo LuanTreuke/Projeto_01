@@ -23,13 +23,8 @@ $autoload = function($class){
 spl_autoload_register($autoload);
 
 //Função para o cargo
-function pegaCargo($cargo){
-    $vetor = [
-        '0' => 'Normal',
-        '1' => 'Sub-administrador',
-        '2' => 'Administrador'
-    ];
-    return $vetor[$cargo];
+function pegaCargo($indice){
+    return Painel::$cargos[$indice];
 }
 
 //Função para o menu selecionado 

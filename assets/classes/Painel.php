@@ -1,12 +1,19 @@
 <?php
-class Painel
-{
+class Painel{   
+
+    public static $cargos = [
+        '0' => 'Normal',
+        '1' => 'Sub-administrador',
+        '2' => 'Administrador'
+    ];
+
     public static function logado()
     {
         return isset($_SESSION['login']) ? true : false;
     }
 
     public static function logout(){
+        setcookie('lembrar', true, time() - 3600, '/');
         session_destroy();
         header('Location: '.INCLUDE_PATH_PAINEL);
     }
@@ -71,15 +78,50 @@ class Painel
     }
 
     public static function uploadFile($file){
-        if(move_uploaded_file($file['tmp_name'], BASE_DIR_PAINEL.'uploads/'.$file['name']))
-            return $file['name'];
+        $formatoArquivo = explode('.', $file['name']);
+        $nomeImagem = uniqid().'.'.$formatoArquivo[count($formatoArquivo) - 1];
+        if(move_uploaded_file($file['tmp_name'], BASE_DIR_PAINEL.'uploads/'.$nomeImagem))
+            return $nomeImagem;
         return false;
     }
 
     public static function deleteFile($file){
-        //@unlink(Base_DIR_PAINEL.'uploads/'.$file);
         @unlink('uploads/'.$file);
     }
 
+    public static function painelUsers(){
+        $sql = MySql::conectar()->prepare("SELECT * FROM `tb_admin.usuarios`");
+        $sql->execute();
+        return $sql->fetchAll();  
+    }
+    
+    public static function insert($arr){
+        $certo = true;
+        $nomeTabela = $arr['nomeTabela'];
+        $query = "INSERT INTO `nomeTabela` VALUES (null";
+        foreach ($arr as $key => $value) {
+            $nome = $key;
+            if($nome == 'acao' || $nome == 'nomeTabela')
+                continue;
+            if($value == ''){
+                $certo = false;
+                break;
+            }
+            $query.=",?";
+            $parametros[] = $value;
+        }
+        $query.=")";
+        if($certo){
+            $sql = MySql::conectar()->prepare($query);
+            $sql->execute($parametros);
+        }
+        return $certo;
+    }
+
+    public static function getAll($tabela){
+        $sql = MySql::conectar()->prepare("SELECT * FROM `$tabela`");
+        $sql->execute();
+        return $sql->fetchAll();
+    }
 }
 ?>

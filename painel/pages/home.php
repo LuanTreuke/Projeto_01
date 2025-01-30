@@ -1,6 +1,7 @@
 <?php $usuariosOnline = Painel::listUserOnline(); ?>
 <?php $getUserTotal = Painel::getUserTotal() ?>
 <?php $getUserTotalToday = Painel::getUserTotalToday() ?>
+<?php $painelUsers = Painel::painelUsers() ?>
 
 <div class="box-content left w100">
     <h2><i class="fa-solid fa-house"> Painel de Controle - <?php echo NOME_EMPRESA; ?></i></h2>
@@ -49,4 +50,33 @@
         <?php }?>
 
     </div>
+
+    <div class="box-content left w100">
+        <h2><i class="fa-brands fa-chrome"></i>Usuários do Painel</h2>
+        <div class="table-responsive">
+            <div class="row">
+                <div class="col left w50">
+                    <span>Nome</span>
+                </div>
+                <div class="col left w50">
+                    <span>Cargo</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <?php 
+                foreach ($painelUsers as $key => $value) {
+            ?>
+            <div class="row">
+                <div class="col left w50">
+                    <span><?php echo $value['user'];?></span>
+                </div>
+                <div class="col left w50">
+                    <span><?php echo pegaCargo($value['cargo']);?></span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <?php } ?>
+        </div>
+    </div>
+
 </div>
