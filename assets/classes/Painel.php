@@ -96,36 +96,36 @@ class Painel{
     }
     
     public static function insert($arr){
-    $certo = true;
-    $nomeTabela = $arr['nomeTabela'];
+        $certo = true;
+        $nomeTabela = $arr['nomeTabela'];
+        
+        unset($arr['nomeTabela']);
+        unset($arr['acao']);
+        
+        $colunas = implode(", ", array_keys($arr)); 
+        $placeholders = rtrim(str_repeat("?, ", count($arr)), ", "); 
+        
+        $query = "INSERT INTO `$nomeTabela` ($colunas) VALUES ($placeholders)";
     
-    unset($arr['nomeTabela']);
-    unset($arr['acao']);
-    
-    $colunas = implode(", ", array_keys($arr)); 
-    $placeholders = rtrim(str_repeat("?, ", count($arr)), ", "); 
-    
-    $query = "INSERT INTO `$nomeTabela` ($colunas) VALUES ($placeholders)";
-
-    foreach ($arr as $key => $value) {
-        if ($value == '') {
-            $certo = false;
-            break;
+        foreach ($arr as $key => $value) {
+            if ($value == '') {
+                $certo = false;
+                break;
+            }
+            $parametros[] = $value;
         }
-        $parametros[] = $value;
+        
+        if($certo) {
+            $sql = MySql::conectar()->prepare($query);
+            $sql->execute($parametros);
+            $lastId = MySql::conectar()->lastInsertId();
+            $sql = MySql::conectar()->prepare("UPDATE `$nomeTabela`
+                                                SET order_id = ?
+                                                WHERE id = $lastId");
+            $sql->execute(array($lastId));
+        }
+        return $certo;
     }
-    $query .= ")";
-    if($certo) {
-        $sql = MySql::conectar()->prepare($query);
-        $sql->execute($parametros);
-        $lastId = MySql::conectar()->lastInsertId();
-        $sql = MySql::conectar()->prepare("UPDATE `$nomeTabela`
-                                            SET order_id = ?
-                                            WHERE id = $lastId");
-        $sql->execute(array($lastId));
-    }
-    return $certo;
-}
 
 
     public static function getAll($tabela, $start = null, $end = null)
@@ -189,7 +189,7 @@ class Painel{
         return $certo;
     }
 
-    public static function orderItem($tabela, $orderType, $id){
+    public static function ordemItem($tabela, $orderType, $id){
         if ($orderType == 'up') {
             $infoItemAtual = Painel::get($tabela, 'id=?', array($id));
             $order_id = $infoItemAtual['order_id'];
