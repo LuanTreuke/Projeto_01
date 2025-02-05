@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-size: 22px;
+    font-family: sans-serif;
 }
 
 html,body{
@@ -230,6 +231,11 @@ header{
 
 /* table depoimentos */
 
+.wraper-table{
+    overflow: auto;
+}
+
+
 table{
     margin: 20px 0;
     width: 100%;
@@ -258,8 +264,40 @@ table td{
     color: red;
 }
 
+.order-up{
+    color: green;
+}
+
+.order-down{
+    color: red;
+}
 
 /* table depoimentos */
+
+/* Paginação */
+
+.paginacao {
+    margin: 10px 0;
+    text-align: center;
+}
+
+.paginacao a{
+    font: 14px;
+    margin: 0 8px;
+    display: inline-block;
+    padding: 4px;
+    border: 1px solid black;
+    text-decoration: none;
+    color: black;
+}
+
+.paginacao a.page-selected{
+    background-color: black;
+    color: white;
+}
+
+/* Paginação */
+
 
 /* table responsive */
 .table-responsive{

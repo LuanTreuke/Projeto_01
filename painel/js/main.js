@@ -25,4 +25,13 @@ $(function(){
 
     $('[formato="data"]').mask('99/99/9999');
 
+    $('[actionBtn=delete]').click(function (){
+        let text;
+        if (confirm("Deseja mesmo excluir?") == true) {
+        text = "Excluído com sucesso!";
+        } else {
+        text = "Operação cancelada";
+        }
+    })
+
 })
