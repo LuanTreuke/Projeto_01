@@ -97,24 +97,20 @@
          <div id="servicos" class="w50 left servicos-container">
              <h2 class="title">Serviços</h2>
              <div class="servicos">
-                 <ul>
-                     <li>
-                         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste culpa maxime eum, doloribus
-                         rerum odit possimus provident hic quisquam perspiciatis ipsum explicabo officia tempore vero
-                         nam nulla consectetur maiores minus!
-                     </li>
-                     <li>
-                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit veritatis autem est libero
-                         nisi praesentium saepe architecto earum nulla nobis qui, quasi corporis perferendis
-                         voluptates ducimus cupiditate officia totam unde.
-                     </li>
-                     <li>
-                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci eligendi ullam distinctio
-                         repellendus ducimus. Ipsum nulla ducimus autem, rem nobis illo dolores nam placeat
-                         distinctio, eius soluta repudiandae accusantium atque!
-                     </li>
-                 </ul>
+                 <?php 
+                    $sql = MySql::conectar()->prepare("SELECT * FROM `tb_admin.servicos`
+                                                        ORDER BY order_id DESC LIMIT 3");
+                    $sql->execute();
+                    $servicos = $sql->fetchAll();
+                 ?>
              </div>
+             <ul>
+                <?php foreach ($servicos as $key => $value) {?>
+                    <li>
+                        <?php echo $value['servico'];?>
+                    </li>
+                <?php }?>
+             </ul>
          </div>
          <div class="clear"></div>
          <!--clear float-->
