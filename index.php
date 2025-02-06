@@ -4,6 +4,12 @@
 
 <?php Site::countUser(); ?>
 
+<?php 
+$infoSite = MySql::conectar()->prepare("SELECT * FROM `tb_admin.config`");
+$infoSite->execute();
+$infoSite = $infoSite->fetch();
+?>
+
 <!DOCTYPE html>
 <!--Idiomas-->
 <html lang="en, pt-br">
@@ -31,7 +37,7 @@
     <!--Css-->
     <link rel="stylesheet" href="<?php echo INCLUDE_PATH; ?>assets/css/style.css">
     <!--Título do site-->
-    <title>Projeto 1</title>
+    <title><?php echo $infoSite['titulo']; ?></title>
 
     <!--Favicon-->
     <link rel="shortcut icon" href="<?php echo INCLUDE_PATH; ?>favicon.ico" type="image/x-icon">

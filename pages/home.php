@@ -1,8 +1,16 @@
+ <?php 
+ $slides =MySql::conectar()->prepare("SELECT * FROM `tb_admin.slides`");
+ $slides->execute();
+ $slides = $slides->fetchAll();
+ ?>
+
  <!--banner-principal-->
  <section class="banner-principal">
-     <div style="background-image:url('<?php echo INCLUDE_PATH; ?>assets/img/bg-slide.jpg')" class="banner-single"></div> <!--banner-single-->
-     <div style="background-image:url('<?php echo INCLUDE_PATH; ?>assets/img/bg-slide2.jpg')" class="banner-single"></div> <!--banner-single-->
-     <div style="background-image:url('<?php echo INCLUDE_PATH; ?>assets/img/bg-slide3.jpg')" class="banner-single"></div> <!--banner-single-->
+     
+    <?php foreach ($slides as $key => $value) {
+    ?>
+        <div style="background-image:url('<?php echo INCLUDE_PATH_PAINEL; ?>uploads/<?php echo $value['slide']; ?>')" class="banner-single"></div>
+    <?php } ?>
 
      <div class="overlay"></div>
      <!--overlay-->
@@ -23,14 +31,8 @@
  <section class="descricao-autor">
      <div class="center">
          <div class="w50 left">
-             <h2>Prof. Dr. Robyson Aggio</h2>
-             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat similique hic ullam sed aliquid ut
-                 suscipit dolorum itaque ipsa culpa, laboriosam, autem eligendi eveniet ab. Maxime, accusantium.
-                 Quas,
-                 eos at.</p>
-             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et nostrum minus maxime expedita porro. Vero
-                 repellendus quasi dolore, fuga porro, deleniti laboriosam, et voluptatem dignissimos blanditiis
-                 cupiditate eos aut explicabo?</p>
+             <h2><?php echo $infoSite['nome_autor'];?></h2>
+             <p><?php echo $infoSite['descricao'];?></p>
          </div>
          <div class="w50 left">
              <img src="<?php echo INCLUDE_PATH; ?>assets/img/local-trabalho.png" alt="Local de trabalho">
@@ -47,25 +49,16 @@
      <div class="center">
          <h2 class="title">Especialidades</h2>
          <div class="w33 left box-especialidades">
-             <h3><i class="fa-brands fa-html5"></i></h3>
-             <h3>HTML 5</h3>
-             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. In maiores quae dolor consequatur, at
-                 nostrum voluptatum exercitationem fuga itaque vero eius commodi rerum esse cupiditate nisi
-                 laboriosam dolore quia dicta!</p>
+             <h3><i class="<?php echo $infoSite['icone1']?>"></i></h3>
+             <p><?php echo $infoSite['descricao1']?></p>
          </div>
          <div class="w33 left box-especialidades">
-             <h3><i class="fa-brands fa-css3"></i></h3>
-             <h3>CSS 3</h3>
-             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. In maiores quae dolor consequatur, at
-                 nostrum voluptatum exercitationem fuga itaque vero eius commodi rerum esse cupiditate nisi
-                 laboriosam dolore quia dicta!</p>
-         </div>
+         <h3><i class="<?php echo $infoSite['icone2']?>"></i></h3>
+            <p><?php echo $infoSite['descricao2']?></p>
+            </div>
          <div class="w33 left box-especialidades">
-             <h3><i class="fa-brands fa-js"></i></h3>
-             <h3>JavaScript</h3>
-             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. In maiores quae dolor consequatur, at
-                 nostrum voluptatum exercitationem fuga itaque vero eius commodi rerum esse cupiditate nisi
-                 laboriosam dolore quia dicta!</p>
+            <h3><i class="<?php echo $infoSite['icone3']?>"></i></h3>
+            <p><?php echo $infoSite['descricao3']?></p>
          </div>
          <div class="clear"></div>
          <!--clear float-->
