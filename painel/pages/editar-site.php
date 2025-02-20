@@ -32,8 +32,7 @@ $site = Painel::get('tb_admin.config', false);
             <textarea name="descricao"><?php echo $site['descricao']?></textarea>
         </div>
 
-        <?php for ($i; $i <= 3; $i++) { 
-
+        <?php for ($i=1; $i <= 3; $i++) { 
         ?>
 
         <div class="form-group">

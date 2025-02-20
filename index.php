@@ -1,13 +1,11 @@
 <?php include('config.php'); ?>
 
-<?php Site::updateUserOnline();?>
-
-<?php Site::countUser(); ?>
-
 <?php 
 $infoSite = MySql::conectar()->prepare("SELECT * FROM `tb_admin.config`");
 $infoSite->execute();
 $infoSite = $infoSite->fetch();
+Site::updateUserOnline();
+Site::countUser();
 ?>
 
 <!DOCTYPE html>

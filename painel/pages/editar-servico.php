@@ -31,7 +31,7 @@
         <div class="form-group">
             <input type="hidden" name="id" value="<?php echo $id?>">
             <input type="hidden" name="nomeTabela" value="tb_admin.servicos">
-            <input type="hidden" name="acao" value="Atualizar">
+            <input type="submit" name="acao" value="Atualizar">
         </div>
     </form>
 </div>

@@ -15,6 +15,7 @@
             header('Location: '. INCLUDE_PATH_PAINEL);
             die();        
         }
+        
     }
 ?>
 

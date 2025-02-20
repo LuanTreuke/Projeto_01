@@ -1,7 +1,7 @@
- <?php 
- $slides =MySql::conectar()->prepare("SELECT * FROM `tb_admin.slides`");
- $slides->execute();
- $slides = $slides->fetchAll();
+<?php
+    $slides = MySql::conectar()->prepare("SELECT * FROM `tb_admin.slides`");
+    $slides->execute();
+    $slides = $slides->fetchAll();
  ?>
 
  <!--banner-principal-->
