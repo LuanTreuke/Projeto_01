@@ -57,33 +57,41 @@ Site::countUser();
     ?>
 
 <!--header-->
-    <header class="header-index">
-        <a href="<?php echo INCLUDE_PATH; ?>">
-            <img src="<?php echo INCLUDE_PATH; ?>home icon.png" alt="Home pokemon" id="home-button">
-        </a>
-        <nav class="nav-bar">
-            <div class="nav-list">
+    <header>
+        <div class="center">
+            <div class="logo left">
+                <a href="<?php echo INCLUDE_PATH; ?>">
+                    <img src="<?php echo INCLUDE_PATH; ?>ifpr_logo.png" alt="IFPR">
+                </a>
+            </div>
+            <nav class="desktop right">
                 <ul>
-                    <li class="nav-li"><a href="<?php echo INCLUDE_PATH; ?>">Home</a></li>
-                    <li class="nav-li"><a href="<?php echo INCLUDE_PATH; ?>noticias">Pokédex</a></li>
-                    <li class="nav-li"><a href="<?php echo INCLUDE_PATH; ?>autor">Autor</a></li>
-                    <li class="nav-li"><a href="<?php echo INCLUDE_PATH; ?>painel"><i class="fa-solid fa-user"></i></a></li>
+                    <li><a href="<?php echo INCLUDE_PATH; ?>">Home</a></li>
+                    <li><a href="<?php echo INCLUDE_PATH; ?>noticias">Noticias</a></li>
+                    <li><a href="<?php echo INCLUDE_PATH; ?>depoimentos">Depoimentos</a></li>
+                    <li><a href="<?php echo INCLUDE_PATH; ?>servicos">Serviços</a></li>
+                    <li><a href="<?php echo INCLUDE_PATH; ?>contato">Contato</a></li>
+                    <li><a href="<?php echo INCLUDE_PATH; ?>painel"><i class="fa-solid fa-user"></i></a></li>
                 </ul>
-            </div>
-        </nav>
-        <nav class="mobile">
-            <div class="barras">
+            </nav>
+            <nav class="mobile right">
                 <div class="bars-mobile fa-solid fa-bars"></div>
-            </div>
-            <ul>
-                <li><a href="<?php echo INCLUDE_PATH; ?>">Home</a></li>
-                <li><a href="<?php echo INCLUDE_PATH; ?>noticias">Pokédex</a></li>
-                <li><a href="<?php echo INCLUDE_PATH; ?>painel"><i class="fa-solid fa-user"></i></a></li>
-            </ul>
-        </nav>
+                <ul>
+                    <li><a href="<?php echo INCLUDE_PATH; ?>">Home</a></li>
+                    <li><a href="<?php echo INCLUDE_PATH; ?>noticias">Noticias</a></li>
+                    <li><a href="<?php echo INCLUDE_PATH; ?>depoimentos">Depoimentos</a></li>
+                    <li><a href="<?php echo INCLUDE_PATH; ?>servicos">Serviços</a></li>
+                    <li><a href="<?php echo INCLUDE_PATH; ?>contato">Contato</a></li>
+                    <li><a href="<?php echo INCLUDE_PATH; ?>painel"><i class="fa-solid fa-user"></i></a></li>
+                </ul>
+            </nav>
+            <div class="clear"></div>
+            <!--clear float-->
+        </div>
     </header>
     <!--header-->
 
+    <!--Recortar todo o conteúdo e colar em: pages/home.php-->
     <?php
 
     //Se a URL existe
@@ -131,7 +139,6 @@ Site::countUser();
 
     <?php if($url == 'home' || $url == ''){?>
         <script src="<?php echo INCLUDE_PATH; ?>assets/js/especialidades.js"></script>
-        <script src="<?php echo INCLUDE_PATH; ?>assets/js/typewriter.js"></script>
     <?php } ?>
 
     <?php if ($url[0] == 'noticias') { ?>

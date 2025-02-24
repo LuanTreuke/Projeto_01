@@ -4,7 +4,7 @@ session_start();
 //Fuso horário de São Paulo
 date_default_timezone_set('America/Sao_Paulo');
 
-define('INCLUDE_PATH', 'http://localhost/elel/ProjetoFinal/Projeto_01/');
+define('INCLUDE_PATH', 'http://localhost/elel/Projeto_01/');
 
 define('INCLUDE_PATH_PAINEL', INCLUDE_PATH.'painel/');
 

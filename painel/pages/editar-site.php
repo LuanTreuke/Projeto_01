@@ -32,6 +32,20 @@ $site = Painel::get('tb_admin.config', false);
             <textarea name="descricao"><?php echo $site['descricao']?></textarea>
         </div>
 
+        <?php for ($i=1; $i <= 3; $i++) { 
+        ?>
+
+        <div class="form-group">
+            <label for="icone<?php echo $i;?>">Nome do ícone <?php echo $i;?>: </label>
+            <input type="text" name="icone<?php echo $i;?>" value="<?php echo $site['icone' .$i]?>">
+        </div>
+
+        <div class="form-group">
+            <label for="descricao<?php echo $i;?>">Descrição do ícone <?php echo $i;?>: </label>
+            <textarea name="descricao<?php echo $i;?>"><?php echo $site['descricao'.$i]?></textarea>
+        </div>
+
+        <?php }?>
 
         <div class="form-group">
             <input type="hidden" name="nomeTabela" value="tb_admin.config">

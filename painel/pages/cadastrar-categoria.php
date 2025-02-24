@@ -18,24 +18,24 @@
                 ];
                 
                 if(Painel::insert($arr)){
-                    Painel::messageToUser('sucesso', 'Tipo cadastrado com sucesso!');
+                    Painel::messageToUser('sucesso', 'Categoria cadastrada com sucesso!');
                     $nome = '';
                 }else{
-                    Painel::messageToUser('erro', 'Erro ao cadastrar tipo!');
+                    Painel::messageToUser('erro', 'Erro ao cadastrar categoria!');
                 }
             }else{
-                Painel::messageToUser('erro', 'Já existe um tipo com este nome!');
+                Painel::messageToUser('erro', 'Já existe uma categoria com este nome!');
             }
         }
     }
 ?>
 
 <div class="box-content">
-    <h2><i class="fa fa-pencil"></i> Cadastrar Tipo</h2>
+    <h2><i class="fa fa-pencil"></i> Cadastrar Categoria</h2>
     
     <form method="post">
         <div class="form-group">
-            <label>Nome do Tipo:</label>
+            <label>Nome da Categoria:</label>
             <input type="text" name="nome" value="<?php echo isset($nome) ? $nome : ''; ?>">
         </div>
         
