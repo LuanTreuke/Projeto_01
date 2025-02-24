@@ -101,6 +101,20 @@ if (isset($_GET['logout'])) {
     <script src="<?php echo INCLUDE_PATH_PAINEL; ?>js/main.js"></script>
     <script src="<?php echo INCLUDE_PATH_PAINEL; ?>js/jquery_mask.js"></script>
 
+    <!-- Place the first <script> tag in your HTML's <head> -->
+    <script src="https://cdn.tiny.cloud/1/elbhp8q2co9zjdoxy15nnndx8bfzhyo4ufi8326yioyonh0m/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+    <script>
+    tinymce.init({
+        selector: '.tinymce',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        height: 500
+    });
+    </script>
+    
+    
 </body>
 
 </html>

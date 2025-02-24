@@ -111,14 +111,15 @@ class Painel
         return false;
     }
 
-    public static function uploudFile($file)
+    public static function uploadFile($file)
     {
         $formatoArquivo = explode('.', $file['name']);
         $nomeImagem = uniqid() . '.' . $formatoArquivo[count($formatoArquivo) - 1];
-        if (move_uploaded_file($file['tmp_name'], BASE_DIR_PAINEL . 'uploads/' . $nomeImagem))
+        if(move_uploaded_file($file['tmp_name'], BASE_DIR_PAINEL . 'uploads/' . $nomeImagem))
             return $nomeImagem;
         return false;
     }
+
     public static function deleteFile($file)
     {
         @unlink('uploads/' . $file);
@@ -129,6 +130,7 @@ class Painel
         $sql->execute();
         return $sql->fetchAll();
     }
+    
     public static function insert($arr)
     {
         $certo = true;

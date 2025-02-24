@@ -12,6 +12,11 @@ body {
     height: 100%;
 }
 
+.text-center {
+    text-align: center;
+    margin-top: 10px;
+}
+
 .center {
     max-width: 1280px;
     padding: 0 2%;
@@ -201,6 +206,14 @@ section.descricao-autor {
 section.descricao-autor h2 {
     font-size: 32px;
     /*Tamanho da fonte*/
+}
+
+section.descricao-autor img {
+    width: 150px;
+    height: 150px;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
 }
 
 section.descricao-autor p {
@@ -416,6 +429,137 @@ section.erro-404 a {
 .map iframe {
     width: 100%;
     height: 400px;
+}
+
+/*Portal de noticias*/
+.header-noticias {
+    width: 100%;
+    padding: 40px 0;
+    background-color: rgb(117, 243, 117);
+    box-shadow: 5px 5px 10px rgb(75, 221, 75);
+}
+
+.header-noticias h2:nth-of-type(1) {
+    font-size: 42px;
+}
+
+.header-noticias h2 {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: normal;
+    border-radius: 10px;
+}
+
+section.container-portal {
+    padding: 50px 0;
+}
+
+.sidebar {
+    float: left;
+    width: 22%;
+}
+
+.box-content-sidebar {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 30px;
+    color: white;
+    background-color: rgb(75, 221, 75);
+    box-shadow: 5px 5px 10px rgb(75, 221, 75);
+    border-radius: 10px;
+}
+
+.box-content-sidebar h3 {
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.box-content-sidebar input[type="text"],
+.box-content-sidebar select {
+    width: 100%;
+    height: 40px;
+    border: 1px solid black;
+    font-size: 18px;
+    padding-left: 8px;
+    margin-top: 10px;
+    box-shadow: 5px 5px 5px black;
+}
+
+.box-content-sidebar input[type="submit"] {
+    width: 100%;
+    height: 40px;
+    color: white;
+    background-color: black;
+    border: 1px solid black;
+    font-size: 18px;
+    margin-top: 10px;
+    cursor: pointer;
+    box-shadow: 5px 5px 5px black;
+}
+
+.conteudo-portal {
+    float: right;
+    width: 76%;
+    padding: 0 2%;
+    text-align: center;
+}
+
+.header-conteudo-portal {
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.header-conteudo-portal h2 {
+    font-size: 22px;
+    font-weight: normal;
+}
+
+.header-conteudo-portal h2>span {
+    border-bottom: 5px solid black;
+    font-weight: bold;
+}
+
+.box-single-conteudo {
+    float: left;
+    width: 31%;
+    background-color: black;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 5px 5px 5px black;
+    color: white;
+    border-radius: 10px;
+}
+
+.box-single-conteudo h2 {
+    padding-bottom: 20px;
+}
+
+.box-single-conteudo a {
+    color: rgb(75, 221, 75);
+    text-decoration: none;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.paginator {	
+    text-align: center;
+}
+
+.paginator a {
+    display: inline-block;
+    padding: 10px 2px;
+    margin: 10px;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    width: 25px;
+    text-decoration: none;
+}
+
+.paginator a.active-page {
+    background-color: black;
+    color: white;
 }
 
 /*@media screen -> Mobile*/

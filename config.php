@@ -54,6 +54,14 @@ function verificaPermissaoPagina($permissao){
 
 //Nome para inserir no painel da empresa
 $nomeEmpresa = 'IFPR';
-define('NOME_EMPRESA', 'IFPR')
+define('NOME_EMPRESA', 'IFPR');
+
+//função para recuperar os campos
+function recoverPost($post){
+    if(isset($_POST[$post])){
+        echo $_POST[$post];
+    }
+}
+
 
 ?>

@@ -29,20 +29,19 @@
 
  <!--descricao-autor-->
  <section class="descricao-autor">
-     <div class="center">
-         <div class="w50 left">
-             <h2><?php echo $infoSite['nome_autor'];?></h2>
-             <p><?php echo $infoSite['descricao'];?></p>
-         </div>
-         <div class="w50 left">
-             <img src="<?php echo INCLUDE_PATH; ?>assets/img/local-trabalho.png" alt="Local de trabalho">
-         </div>
-         <div class="clear"></div>
-         <!--clear float-->
-     </div>
-     <!--center-->
- </section>
- <!--descricao-autor-->
+    <div class="center">
+        <div class="w100">
+            <h2 class="text-center">
+                <img src="<?php echo INCLUDE_PATH; ?>assets/img/local-trabalho.png">
+                <?php echo $infoSite['nome_autor']; ?>
+            </h2>
+            <h3 class="text-center">
+                <p><?php echo $infoSite['descricao']; ?></p>
+            </h3>
+        </div>
+        <div class="clear"></div><!--clear float-->
+    </div><!--center-->
+</section><!--descricao-autor-->
 
  <!--especialidades-->
  <section class="especialidades">

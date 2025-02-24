@@ -14,7 +14,7 @@
                 Painel::messageToUser('erro', 'Imagem de capa precisa ser selecionada!');
             }else{
                 if(Painel::validImage($capa)){
-                    $verificaNoticia = MySql::conectar()->prepare("SELECT * FROM `tb_admin.noticias` WHERE titulo = ?");
+                    $verificaNoticia = MySql::conectar()->prepare("SELECT * FROM `tb_admin.noticias` WHERE titulo = ? AND categoria_id = ?");
                     $verificaNoticia->execute(array($titulo));
                     if($verificaNoticia->rowCount() == 0){
                         $imagem = Painel::uploadFile($capa);
@@ -23,59 +23,57 @@
                             'categoria_id'=>$categoria_id,
                             'titulo'=>$titulo, 
                             'conteudo'=>$conteudo,
-                            'imagem'=>$imagem,
-                            'slug'=>$slug,
+                            'capa'=>$imagem,
                             'order_id'=>'0',
+                            'slug'=>$slug,
                             'nomeTabela'=>'tb_admin.noticias'
                         ];
-
-                    $imagem = Painel::uploadFile($imagem);
-                    $slug = Painel::generateSlug($titulo);
-                    $arr = [
-                        'categoria_id'=>$categoria_id,
-                        'titulo'=>$titulo, 
-                        'conteudo'=>$conteudo,
-                        'imagem'=>$imagem,
-                        'slug'=>$slug,
-                        'order_id'=>'0',
-                        'nomeTabela'=>'tb_admin.noticias'
-                    ];
-                    Painel::insert($arr);
-                    Painel::messageToUser('sucesso', 'A notícia foi cadastrada com sucesso!');
+                        
+                        if(Painel::insert($arr)){
+                            Painel::redirect(INCLUDE_PATH_PAINEL . 'cadastrar-noticia?sucesso');
+                        }
+                    }else{
+                        Painel::messageToUser('erro', 'Já existe uma notícia com esse nome!');
+                    }
+                }else{
+                    Painel::messageToUser('erro', 'Formatos de imagem permitidos (jpeg, jpg ou png)');
                 }
             }
         }
         ?>
 
         <div class="form-group">
-            <label>Categoria:</label>
-            <select name="categoria_id">
+            <label for="categoria_id">Categoria:</label>
+            <select name="categoria_id" id="">
                 <?php
                     $categorias = Painel::getAll('tb_admin.categorias');
                     foreach ($categorias as $key => $value) {
                 ?>
-                <option value="<?php echo $value['id'] ?>"><?php echo $value['nome'] ?></option>
+                <option <?php if($value['id'] == @$_POST['categoria_id']) echo 'selected'; ?> 
+                        value="<?php echo $value['id']; ?>"><?php echo $value['nome']; ?></option>
                 <?php } ?>
             </select>
         </div>
 
         <div class="form-group">
-            <label>Título:</label>
-            <input type="text" name="titulo">
+            <label for="titulo">Título: </label>
+            <input type="text" name="titulo" value="<?php recoverPost('titulo');?>" required>
         </div>
 
         <div class="form-group">
-            <label>Conteúdo:</label>
-            <textarea name="conteudo"></textarea>
+            <label for="conteudo">Conteúdo: </label>
+            <textarea class="tinymce" name="conteudo" id=""><?php recoverPost('conteudo');?></textarea>
         </div>
         
         <div class="form-group">
-            <label>Imagem:</label>
-            <input type="file" name="imagem">
+            <label for="imagem">Imagem: </label>
+            <input type="file" name="capa">
         </div>
 
         <div class="form-group">
-            <input type="submit" name="acao" value="Cadastrar">
+            <input type="hidden" name="order_id" value="0">
+            <input type="hidden" name="nomeTabela" value="tb_admin.noticias">
+            <input type="submit" name="acao" value="Adicionar">
         </div>
     </form>
 </div>

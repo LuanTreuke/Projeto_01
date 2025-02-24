@@ -42,7 +42,7 @@ Site::countUser();
 </head>
 
 <body>
-
+<base base="<?php echo INCLUDE_PATH; ?>" />
     <?php
     //Obtendo a url se existir ou home
     $url = isset($_GET['url']) ? $_GET['url'] : 'home';
@@ -67,6 +67,7 @@ Site::countUser();
             <nav class="desktop right">
                 <ul>
                     <li><a href="<?php echo INCLUDE_PATH; ?>">Home</a></li>
+                    <li><a href="<?php echo INCLUDE_PATH; ?>noticias">Noticias</a></li>
                     <li><a href="<?php echo INCLUDE_PATH; ?>depoimentos">Depoimentos</a></li>
                     <li><a href="<?php echo INCLUDE_PATH; ?>servicos">Serviços</a></li>
                     <li><a href="<?php echo INCLUDE_PATH; ?>contato">Contato</a></li>
@@ -77,6 +78,7 @@ Site::countUser();
                 <div class="bars-mobile fa-solid fa-bars"></div>
                 <ul>
                     <li><a href="<?php echo INCLUDE_PATH; ?>">Home</a></li>
+                    <li><a href="<?php echo INCLUDE_PATH; ?>noticias">Noticias</a></li>
                     <li><a href="<?php echo INCLUDE_PATH; ?>depoimentos">Depoimentos</a></li>
                     <li><a href="<?php echo INCLUDE_PATH; ?>servicos">Serviços</a></li>
                     <li><a href="<?php echo INCLUDE_PATH; ?>contato">Contato</a></li>
@@ -97,8 +99,13 @@ Site::countUser();
         include('pages/' . $url . '.php');
     } else {
         if ($url != 'depoimentos' && $url != 'servicos') {
-            $pagina404 = true;
-            include('pages/404.php');
+            $urlPar = explode('/', $url)[0];
+            if ($urlPar != 'noticias') {
+                $pagina404 = true;
+                include('pages/404.php');
+            }else{
+                include('pages/noticias.php');
+            }
         } else {
             include('pages/home.php');
         }
@@ -133,6 +140,11 @@ Site::countUser();
     <?php if($url == 'home' || $url == ''){?>
         <script src="<?php echo INCLUDE_PATH; ?>assets/js/especialidades.js"></script>
     <?php } ?>
+
+    <?php if ($url[0] == 'noticias') { ?>
+        <script src="<?php echo INCLUDE_PATH; ?>assets/js/filtro.js"></script>
+    <?php } ?>
+
 </body>
 
 </html>

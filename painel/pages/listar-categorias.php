@@ -3,6 +3,17 @@ if(isset($_GET['excluir'])){
     //$idExcluir = (int)($_GET['excluir']);
     $idExcluir = intval($_GET['excluir']);
     Painel::delete('tb_admin.categorias', $idExcluir);
+    
+    $noticias = MySql::conectar()->prepare("SELECT * FROM `tb_admin.noticias` WHERE categoria_id = ?");
+    $noticias->execute(array($idExcluir));
+    $noticias = $noticias->fetchAll();
+    foreach ($noticias as $key => $value) {
+        $imgDelete = $value['capa'];
+        Painel::deleteFile($imgDelete);
+    }
+    $noticias = MySql::conectar()->prepare("DELETE FROM `tb_admin.noticias` WHERE categoria_id = ?");
+    $noticias->execute(array($idExcluir));
+
     Painel::redirect(INCLUDE_PATH_PAINEL.'listar-categorias');
 }else if(isset($_GET['order']) && isset($_GET['id'])){
     Painel::orderItem('tb_admin.categorias', $_GET['order'], $_GET['id']);
