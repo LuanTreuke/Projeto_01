@@ -19,13 +19,13 @@ $noticias = Painel::getAll('tb_admin.noticias', ($paginaAtual - 1) * $porPagina,
 ?>
 
 <div class="box-content">
-    <h2><i class="fas fa-database"></i> Notícias cadastradas</h2>
+    <h2><i class="fas fa-database"></i> Pokémons cadastrados</h2>
 
     <div class="wraper-table">
         <table>
             <tr>
-                <td>Título</td>
-                <td>Categoria</td>
+                <td>Nome</td>
+                <td>Tipo</td>
                 <td>Imagem</td>
                 <td>Editar</td>
                 <td>Excluir</td>

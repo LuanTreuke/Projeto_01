@@ -8,18 +8,49 @@ class Painel
     ];
 
     public static function generateSlug($str){
+        if(empty($str)) return 'sem-titulo-' . uniqid();
+        
+        // Remove espaços extras e caracteres especiais do início e fim
+        $str = trim($str);
+        
+        // Converte para minúsculas e remove acentos
         $str = mb_strtolower($str);
-        $str = preg_replace('/(â|á|ã)/', 'a', $str);
-        $str = preg_replace('/(ê|é)/', 'e', $str);
-        $str = preg_replace('/(í|Í)/', 'i', $str);
-        $str = preg_replace('/(ó|Ô|ô|õ|º)/', 'o', $str);
-        $str = preg_replace('/(ú)/', 'u', $str);
+        $str = preg_replace('/(â|á|ã|à)/', 'a', $str);
+        $str = preg_replace('/(ê|é|è)/', 'e', $str);
+        $str = preg_replace('/(í|ì)/', 'i', $str);
+        $str = preg_replace('/(ó|ò|ô|õ|º)/', 'o', $str);
+        $str = preg_replace('/(ú|ù)/', 'u', $str);
         $str = preg_replace('/(ç)/', 'c', $str);
-        $str = preg_replace('/(-[-]{1,})/', '-', $str);
-        $str = preg_replace('/(,)/', '-', $str);
-        $str = preg_replace('/( )/', '-', $str);
-        $str = preg_replace('/(_|\/|!|\?|#)/', '-', $str);
-        $str = strtolower($str);
+        
+        // Remove caracteres especiais e substitui espaços por hífens
+        $str = preg_replace('/[^a-z0-9\s-]/', '', $str);
+        $str = preg_replace('/[\s-]+/', '-', $str);
+        $str = trim($str, '-');
+        
+        // Se após toda a limpeza o slug ficou vazio, gera um valor padrão
+        if(empty($str)) {
+            $str = 'pokemon-' . uniqid();
+        }
+        
+        // Verifica se já existe um slug igual em qualquer uma das tabelas
+        $sql1 = MySql::conectar()->prepare("SELECT * FROM `tb_admin.noticias` WHERE slug = ?");
+        $sql2 = MySql::conectar()->prepare("SELECT * FROM `tb_admin.categorias` WHERE slug = ?");
+        
+        $sql1->execute(array($str));
+        $sql2->execute(array($str));
+        
+        if($sql1->rowCount() > 0 || $sql2->rowCount() > 0){
+            // Adiciona um número incremental ao final do slug
+            $counter = 1;
+            $baseSlug = $str;
+            do {
+                $str = $baseSlug . '-' . $counter;
+                $sql1->execute(array($str));
+                $sql2->execute(array($str));
+                $counter++;
+            } while($sql1->rowCount() > 0 || $sql2->rowCount() > 0);
+        }
+        
         return $str;
     }
 
@@ -102,10 +133,10 @@ class Painel
             $image['type'] == 'image/png'
         ) {
             $size = intval($image['size'] / 1024);
-            if ($size < 500) {
+            if ($size < 2048) {
                 return true;
             } else {
-                Painel::messageToUser('erro', 'O tamenho precisa ser menor do que 500kb');
+                Painel::messageToUser('erro', 'O tamanho precisa ser menor do que 2MB');
             }
         }
         return false;
@@ -133,29 +164,82 @@ class Painel
     
     public static function insert($arr)
     {
-        $certo = true;
-        $nomeTabela = $arr['nomeTabela'];
-        $query = "INSERT INTO `$nomeTabela` VALUES (null";
-        foreach ($arr as $key => $value) {
-            $nome = $key;
-            if ($nome == 'acao' || $nome == 'nomeTabela')
-                continue;
-            if ($value == '') {
-                $certo = false;
-                break;
+        try {
+            $certo = true;
+            $nomeTabela = $arr['nomeTabela'];
+            $query = "INSERT INTO `$nomeTabela` VALUES (null";
+            $parametros = array();
+            
+            // Debug
+            echo "<!--";
+            echo "Iniciando insert na tabela: " . $nomeTabela . "\n";
+            echo "-->";
+            
+            // Primeiro vamos verificar se todos os campos necessários existem
+            $campos_necessarios = array('categoria_id', 'titulo', 'conteudo', 'capa', 'slug');
+            foreach($campos_necessarios as $campo) {
+                if(!isset($arr[$campo]) || empty($arr[$campo])) {
+                    echo "<!--";
+                    echo "Campo faltando ou vazio: " . $campo . "\n";
+                    echo "-->";
+                    return false;
+                }
             }
-            $query .= ",?";
-            $parametros[] = $value;
+            
+            foreach ($arr as $key => $value) {
+                $nome = $key;
+                if ($nome == 'acao' || $nome == 'nomeTabela')
+                    continue;
+                    
+                // Debug
+                echo "<!--";
+                echo "Campo: " . $nome . " = " . $value . "\n";
+                echo "-->";
+                
+                if ($value === '') {
+                    $certo = false;
+                    break;
+                }
+                $query .= ",?";
+                $parametros[] = $value;
+            }
+            
+            $query .= ")";
+            
+            // Debug
+            echo "<!--";
+            echo "Query: " . $query . "\n";
+            echo "Parâmetros: ";
+            var_dump($parametros);
+            echo "-->";
+            
+            if ($certo) {
+                $sql = MySql::conectar()->prepare($query);
+                $resultado = $sql->execute($parametros);
+                
+                if(!$resultado) {
+                    echo "<!--";
+                    echo "Erro na execução da query: ";
+                    var_dump($sql->errorInfo());
+                    echo "-->";
+                    return false;
+                }
+                
+                $lastId = MySql::conectar()->lastInsertId();
+                
+                if($lastId) {
+                    $sql = MySql::conectar()->prepare("UPDATE `$nomeTabela` SET order_id = ? WHERE id = ?");
+                    $sql->execute(array($lastId, $lastId));
+                }
+                return true;
+            }
+            return false;
+        } catch(Exception $e) {
+            echo "<!--";
+            echo "Exceção: " . $e->getMessage() . "\n";
+            echo "-->";
+            return false;
         }
-        $query .= ")";
-        if ($certo) {
-            $sql = MySql::conectar()->prepare($query);
-            $sql->execute($parametros);
-            $lastId = MySql::conectar()->lastInsertId();
-            $sql = MySql::conectar()->prepare("UPDATE `$nomeTabela` SET order_id = ? WHERE id = $lastId");
-            $sql->execute(array($lastId));
-        }
-        return $certo;
     }
     public static function getAll($tabela, $start = null, $end = null)
     {

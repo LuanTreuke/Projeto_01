@@ -25,7 +25,7 @@ $categorias = Painel::getAll('tb_admin.categorias', ($paginaAtual - 1) * $porPag
 ?>
 
 <div class="box-content">
-    <h2><i class="fas fa-database"></i> Categorias cadastradas</h2>
+    <h2><i class="fas fa-database"></i> Tipos cadastrados</h2>
 
     <div class="wraper-table">
         <table>
